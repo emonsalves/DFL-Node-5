@@ -71,10 +71,13 @@ INSERT INTO inventario values
 ## Configuracion ENV
 
 ```
+
+PORT="Ur Port"
 HOST="Ur Host"
 USER="Ur User"
 PASSWORD="Ur Password"
 DATABASE="Ur Database"
+DOMAIN="Ur Domain"
 ```
 
 ## Instalación
