@@ -1,9 +1,9 @@
 const { getJoyas, getFiltroJoyas } = require('../models/joyasModels')
-const { toHATEOAS } = require('../helpers/Hateoas')
-
+const { toHATEOAS } = require('../helpers/hateOAS')
+const {validateNumber, validateText} = require('../helpers/validation')
 const getAllJoyas = async (req, res) => {
     try {
-        const queryStrings = req.query
+        const queryStrings = req.query       
         const joyas = await getJoyas(queryStrings)
         const HATEOAS = await toHATEOAS(joyas)
         res.status(200).json(HATEOAS)
@@ -15,6 +15,7 @@ const getAllJoyas = async (req, res) => {
 const getFiltro = async (req, res) => {
     try {
         const queryStrings = req.query
+
         const filtro = await getFiltroJoyas(queryStrings)
         res.status(200).json(filtro)
     } catch (error) {
