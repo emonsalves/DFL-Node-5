@@ -1,25 +1,41 @@
+require('dotenv').config();
+
 const toHATEOAS = async (joyas) => {
+    const { totalPages } = joyas[1]
+    const { limits } = joyas[2]
+    const { page } = joyas[3]
     try {
-        const results = joyas.map((joya) => {
-            return {
-                name: joya.nombre,
-                href: `/joyas/joya/${joya.id}`,
-            }
-        }).slice(0)
+        const results = joyas[0].map((joya) => ({
+            name: joya.nombre,
+            href: `/joyas/joya/${joya.id}`,
+        }))
 
-        const totalJoyas = joyas.length
+        const totalJoyas = joyas[0].length
 
-        const stockTotal = joyas.reduce(
-            (acumulador, valorActual) => acumulador + valorActual.stock, 0
+        const next = (Number(page) < Number(totalPages))
+            ? `${process.env.DOMAIN}:${process.env.PORT}/joyas?limits=${limits}&page=${Number(page) + 1}`
+            : ""
+
+        const prev = (Number(page) > 1 & Number(page) <= Number(totalPages))
+            ? `${process.env.DOMAIN}:${process.env.PORT}/joyas?limits=${limits}&page=${Number(page - 1)}`
+            : ""
+        const stockTotal = joyas[0].reduce((acumulador, valorActual) => acumulador + valorActual.stock, 0
         )
         const HATEOAS = {
             totalJoyas,
             stockTotal,
+            prev,
+            next,
             results
         }
         return HATEOAS
-    } catch (error) {
-        throw new Error(error)
+    } catch (e) {
+        console.log(
+            "Error al realizar HATEOAS",
+            "Code: ", e.code,
+            "Message: ", e.message
+        );
+        throw new Error(e);
     }
 }
 
