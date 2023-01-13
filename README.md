@@ -68,6 +68,15 @@ INSERT INTO inventario values
 4. Usar try catch para capturar los posibles errores durante una consulta y la lógica de cada ruta creada.
 5. Usar las consultas parametrizadas para evitar el SQL Injection en la consulta a la base de datos relacionada con la ruta GET /joyas/filtros
 
+## Configuracion ENV
+
+```
+HOST="Ur Host"
+USER="Ur User"
+PASSWORD="Ur Password"
+DATABASE="Ur Database"
+```
+
 ## Instalación
 
 ```$npm install
